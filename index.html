@@ -1,87 +1,761 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Can LLMs Correct Themselves? - Paper Introduction</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            line-height: 1.6;
-        }
+  <meta charset="utf-8">
+  <!-- Meta tags for social media banners, these should be filled in appropriatly as they are your "business card" -->
+  <!-- Replace the content tag with appropriate information -->
+  <meta name="description" content="DESCRIPTION META TAG">
+  <meta property="og:title" content="SOCIAL MEDIA TITLE TAG"/>
+  <meta property="og:description" content="SOCIAL MEDIA DESCRIPTION TAG TAG"/>
+  <meta property="og:url" content="URL OF THE WEBSITE"/>
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X630-->
+  <meta property="og:image" content="static/image/your_banner_image.png" />
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
 
-        h1,
-        h2 {
-            color: #333;
-        }
 
-        img {
-            width: 80%;
-            margin: 20px 0;
-        }
+  <meta name="twitter:title" content="TWITTER BANNER TITLE META TAG">
+  <meta name="twitter:description" content="TWITTER BANNER DESCRIPTION META TAG">
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X600-->
+  <meta name="twitter:image" content="static/images/your_twitter_banner_image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <!-- Keywords for your paper to be indexed by-->
+  <meta name="keywords" content="KEYWORDS SHOULD BE PLACED HERE">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        .container {
-            max-width: 800px;
-            margin: auto;
-        }
 
-        .section {
-            margin-bottom: 40px;
-        }
-    </style>
+  <title>CorrectBench: A Benchmark of Self-Correction in LLMs</title>
+  <link rel="icon" type="image/x-icon" href="static/images/MMMR_logo.ico">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+  rel="stylesheet">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
 </head>
-
 <body>
+
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title"><img src="./fig/title.png" alt="MMMR Logo" style="width: 60px; height: auto; vertical-align: middle; margin-right: 15px;">CorrectBench</h1>
+            <h2 class="title is-3 is-normal publication-title" style="font-weight: normal;">A Benchmark of Self-Correction in LLMs</h2>
+            <div class="is-size-5 publication-authors">
+              <!-- Paper authors -->
+              <span class="author-block">
+                Guiyao Tie<sup style="color:#00c9a7">1</sup>,</span>
+                <span class="author-block">
+                  Zenghui Yuan<sup style="color:#00c9a7">1</sup>,</span>
+                  <span class="author-block">
+                    Zeli Zhao<sup style="color:#00c9a7">1</sup>,</span>
+                    <span class="author-block">
+                      Chaoran Hu<sup style="color:#00c9a7">1</sup>,
+                      </span>
+                  <span class="author-block">
+                    Tianhe Gu<sup style="color:#00c9a7">1</sup>,
+                  </span>
+                  <span class="author-block">
+                    Ruihang Zhang<sup style="color:#00c9a7">1</sup>,
+                  </span>
+                  <span class="author-block">
+                    Sizhe Zhang<sup style="color:#00c9a7">1</sup>,
+                  </span>
+                  <span class="author-block">
+                    Junran Wu<sup style="color:#00c9a7">1</sup>,
+                  </span>
+                  <span class="author-block">
+                    Xiaoyue Tu<sup style="color:#00c9a7">1</sup>,
+                  </span>
+                  <span class="author-block">
+                    Ming Jin<sup style="color:#00c9a7">1</sup>,
+                  </span>
+                  <span class="author-block">
+                    Qingsong Wen<sup style="color:#00c9a7">1</sup>,
+                  </span>
+                  <span class="author-block">
+                    Lixing Chen<sup style="color:#00c9a7">1</sup>,
+                  </span>
+                  <span class="author-block">
+                    <a href="https://scholar.google.com/citations?user=cTpFPJgAAAAJ&hl=en" target="_blank">Pan Zhou<sup style="color:#00c9a7">1</sup></a>,
+                  </span>
+                  <span class="author-block">
+                    <a href="https://lichao-sun.github.io/" target="_blank">Lichao Sun<sup style="color: #845ec2;">2</sup></a>,
+                  </span>
+                  
+                  </div>
+
+                  <div class="is-size-5 publication-authors">
+                    <span class="author-block"><sup style="color:#00c9a7">1</sup>Huazhong University of Science and Technology, <sup style="color: #845ec2;">2</sup>Lehigh University<br>
+                      <!-- <br><span style="color: red">NeurIPS 2025 Datasets and Benchmarks Track Submission</span></span> -->
+                    <!-- <span class="eql-cntrb"><small><br><sup>*</sup>Indicates Equal Contribution</small></span> -->
+                  </div>
+
+                  <div class="column has-text-centered">
+                    <div class="publication-links">
+                         <!-- Arxiv PDF link -->
+                      <!-- <span class="link-block">
+                        <a href="https://arxiv.org/pdf/<ARXIV PAPER ID>.pdf" target="_blank"
+                        class="external-link button is-normal is-rounded is-dark">
+                        <span class="icon">
+                          <i class="fas fa-file-pdf"></i>
+                        </span>
+                        <span>Paper</span>
+                      </a>
+                    </span> -->
+
+                    <!-- Dataset link -->
+                    <span class="link-block">
+                      <a href="https://huggingface.co/datasets/zeli2024/CorrectBench" target="_blank"
+                      class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon">
+                        🤗
+                      </span>
+                      <span>CorrectBench</span>
+                    </a>
+                  </span>
+
+                  <!-- Github link -->
+                  <span class="link-block">
+                    <a href="https://github.com/HCR050806/CorrectBench" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+
+                <!-- ArXiv abstract Link -->
+                <!-- <span class="link-block">
+                  <a href="https://arxiv.org/abs/<ARXIV PAPER ID>" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                  </a>
+                </span> -->
+              <!-- Leaderboard link -->
+              <span class="link-block">
+                <a href="#Leaderboard"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fas fa-trophy"></i>
+                  </span>
+                  <span>Leaderboard</span>
+                </a>
+              </span>
+              <!-- Examples link -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Teaser video-->
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <!-- <img src="./fig/overview.png" alt=""> -->
+      <p class="has-text-centered">
+        This paper introduces CorrectBench, a systematic benchmark to evaluate self-correction capabilities in large language
+        models (LLMs), covering commonsense reasoning, mathematical reasoning, and code generation. The study reveals
+        self-correction strategies can improve reasoning accuracy but may impact efficiency.
+      </p>
+    </div>
+  </div>
+</section>
+<!-- End teaser video -->
+
+<!-- Paper Introduction -->
+<section class="section ">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-10">
+        <h2 class="title is-3">
+          <img src="./static/images/intro.png" alt="" style="width: 60px; height: auto; vertical-align: middle; margin-right: 10px; display: inline-block;">
+          <span style="vertical-align: middle;">Introduction</span>
+        </h2>
+        <div class="content has-text-justified">
+          <p>
+            Large Language Models (LLMs) have greatly advanced, but ensuring their reliability and accuracy remains challenging.
+            Self-correction methods help refine LLM responses through iterative feedback, enhancing performance particularly in
+            complex reasoning tasks.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End paper abstract -->
+
+
+<!-- dataset -->
+<section class="hero is-light">
+  <div class="container">
+    <div class="has-text-centered" style="padding: 20px 0;">
+      <h2 class="title is-1">
+        <img src="./static/images/dataset.png" alt="" style="width: 70px; height: auto; vertical-align: middle; margin-right: 10px; display: inline-block;">
+        <span style="vertical-align: middle;">What is CorrectBench?</span>
+        </h2>
+    </div>
+  </div>
+</section>
+
+<section class="hero is-small">
+  <div class="hero-body">
     <div class="container">
-        <h1>Can LLMs Correct Themselves? A Benchmark of Self-Correction in LLMs</h1>
-        <p><strong>Abstract:</strong> This paper introduces CorrectBench, a systematic benchmark to evaluate
-            self-correction capabilities in large language models (LLMs), covering commonsense reasoning, mathematical
-            reasoning, and code generation. The study reveals self-correction strategies can improve reasoning accuracy
-            but may impact efficiency.</p>
-
-        <div class="section">
-            <h2>Introduction to Self-Correction</h2>
-            <p>Large Language Models (LLMs) have greatly advanced, but ensuring their reliability and accuracy remains
-                challenging. Self-correction methods help refine LLM responses through iterative feedback, enhancing
-                performance particularly in complex reasoning tasks.</p>
-<!--             <img src="static/images/poster.png" alt="MY ALT TEXT"/> -->
-            <img src="fig/Mixture.png"
-                alt="Self-Correction Concept Illustration">
-        </div>
-
-        <div class="section">
-            <h2>What is CorrectBench?</h2>
-            <p>CorrectBench is a detailed benchmark developed to measure the effectiveness of self-correction methods in
-                LLMs across various reasoning tasks. It evaluates intrinsic, external, and fine-tuned correction methods
-                systematically.</p>
-            <img src="fig/overview.png" alt="CorrectBench Framework">
-        </div>
-
-        <div class="section">
-            <h2>Self-Correction Types</h2>
-            <ul>
+      <!-- dataset overview -->
+      <div class="columns is-centered">
+        <div class="column is-10">
+          <div class="content">
+            <p class="has-text-justified">
+              <b>CorrectBench</b> is a detailed benchmark developed to measure the effectiveness of self-correction
+              methods in LLMs across
+              various reasoning tasks. It evaluates intrinsic, external, and fine-tuned correction methods
+              systematically.
+            </p>
+          </div>
+          <div class="has-text-centered" style="margin: 30px 0;">
+            <img src="./fig/overview.png" alt="Data Overview" style="max-width: 80%; height: auto;">
+            <div class="section">
+              <!-- 修改标题层级和样式 -->
+              <h2 class="title is-3 has-text-centered" style="margin: 1.5rem 0;">
+                Self-Correction Types
+              </h2>
+              <ul class="has-text-left" style="max-width: 600px; margin: 0 auto;">
                 <li><strong>Intrinsic Correction:</strong> Internal error correction without external aids.</li>
                 <li><strong>External Correction:</strong> Uses external tools and resources to correct errors.</li>
                 <li><strong>Fine-tuned Correction:</strong> Model adjustments through targeted fine-tuning.</li>
-            </ul>
+              </ul>
+            </div>
+          </div>
         </div>
-
-        <div class="section">
-            <h2>Evaluation and Results</h2>
-            <p>Findings indicate substantial accuracy improvements with self-correction, especially in mathematical and
-                complex reasoning tasks. However, mixing methods may increase computational overhead significantly.</p>
-            <img src="fig/increase_intrinsic.png" alt="Evaluation Results">
-        </div>
-
-        <div class="section">
-            <h2>Conclusion and Implications</h2>
-            <p>The benchmark emphasizes self-correction as a valuable tool for enhancing LLM performance, with a clear
-                need to balance reasoning capabilities and efficiency. Future research should optimize this trade-off
-                for practical applications.</p>
-        </div>
+      </div>
+     
+</div>
+</div>
+</section>
+<!-- End image carousel -->
+<!-- End dataset -->
+<section class="hero is-light">
+  <div class="container">
+    <div class="has-text-centered" style="padding: 20px 0;">
+      <h2 class="title is-1">
+        <img src="./static/images/leaderboard.png" alt=""
+          style="width: 70px; height: auto; vertical-align: middle; margin-right: 10px; display: inline-block;">
+        <span style="vertical-align: middle;" id="Leaderboard">Leaderboard</span>
+      </h2>
     </div>
-</body>
+  </div>
+</section>
+<style>
+.positive { color: #16a34a; font-weight: 600; }
+.negative { color: #dc2626; font-weight: 600; }
+</style>
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-12">
+        <div class="table-container">
+          <table class="table is-bordered is-fullwidth">
+            <thead>
+              <tr>
+                <th class="type-column">Type</th>
+                <th>Method</th>
+                <th>HotpotQA (↑)</th>
+                <th>CS-QA (↑)</th>
+                <th>GPQA (↑)</th>
+                <th>GSM8K (↑)</th>
+                <th>AQUA (↑)</th>
+                <th>MATH (↑)</th>
+                <th>HumanEval (↑)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Baselines -->
+              <tr class="group-1">
+                <!-- <td rowspan="2" class="has-text-weight-bold" style="text-align: center; vertical-align: middle;">Baselines</td> -->
+              </tr>
+              <tr>
+                <td rowspan="2" class="model-1">-</td>
+                <td class="model-1">Base</td>
+                <td class="data-cell">
+                  <div class="progress-bar-1" style="width: 80.76%;"></div>
+                  <span class="cell-value">80.76</span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-1" style="width: 79.96%;"></div>
+                  <span class="cell-value">79.96</span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-1" style="width: 18.56%;"></div>
+                  <span class="cell-value">18.56</span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-1" style="width: 86.46%;"></div>
+                  <span class="cell-value">86.46</span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-1" style="width: 61.23%;"></div>
+                  <span class="cell-value">61.23</span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-1" style="width: 75.12%;"></div>
+                  <span class="cell-value">75.12</span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-1" style="width: 72.71%;"></div>
+                  <span class="cell-value">72.71</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="model-1">CoT</td>
+                <td class="data-cell">
+                  <div class="progress-bar-1" style="width: 83.29%;"></div>
+                  <span class="cell-value">83.29<span class="positive">(+2.53)</span></span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-1" style="width: 78.03%;"></div>
+                  <span class="cell-value">78.03<span class="negative">(-1.93)</span></span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-1" style="width: 16.52%;"></div>
+                  <span class="cell-value">16.52<span class="negative">(-2.04)</span></span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-1" style="width: 91.96%;"></div>
+                  <span class="cell-value">91.96<span class="positive">(+5.50)</span></span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-1" style="width: 60.24%;"></div>
+                  <span class="cell-value">60.24<span class="negative">(-0.99)</span></span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-1" style="width: 72.59%;"></div>
+                  <span class="cell-value">72.59<span class="negative">(-2.53)</span></span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-1" style="width: 60.10%;"></div>
+                  <span class="cell-value">60.10<span class="negative">(-12.61)</span></span>
+                </td>
+              </tr>
+              <tr class="group-2">
+              </tr>
+              <tr>
+                <td rowspan="4" class="model-2">S1</td>
+                <td class="model-2">RCI</td>
+                <td class="data-cell">
+                  <div class="progress-bar-2" style="width: 79.67%;"></div>
+                  <span class="cell-value">79.67<span class="negative">(-1.09)</span></span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-2" style="width: 76.29%;"></div>
+                  <span class="cell-value">76.29<span class="negative">(-3.67)</span></span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-2" style="width: 19.98%;"></div>
+                  <span class="cell-value">19.98<span class="positive">(+1.42)</span></span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-2" style="width: 87.00%;"></div>
+                  <span class="cell-value">87.00<span class="positive">(+0.54)</span></span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-2" style="width: 67.12%;"></div>
+                  <span class="cell-value">67.12<span class="positive">(+5.89)</span></span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-2" style="width: 74.92%;"></div>
+                  <span class="cell-value">74.92<span class="negative">(-0.20)</span></span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-2" style="width: 67.46%;"></div>
+                  <span class="cell-value">67.46<span class="negative">(-5.25)</span></span>
+                </td>
+              </tr>
+              <tr>
+                <td class="model-2">CoVe</td>
+                <td class="data-cell">
+                  <div class="progress-bar-2" style="width: 83.04%;"></div>
+                  <span class="cell-value">83.04<span class="positive">(+2.28)</span></span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-2" style="width: 78.54%;"></div>
+                  <span class="cell-value">78.54<span class="negative">(-1.42)</span></span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-2" style="width: 37.41%;"></div>
+                  <span class="cell-value">37.41<span class="positive">(+18.85)</span></span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-2" style="width: 92.23%;"></div>
+                  <span class="cell-value">92.23<span class="positive">(+5.77)</span></span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-2" style="width: 71.12%;"></div>
+                  <span class="cell-value">71.12<span class="positive">(+9.89)</span></span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-2" style="width: 79.30%;"></div>
+                  <span class="cell-value">79.30<span class="positive">(+4.18)</span></span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-2" style="width: 76.96%;"></div>
+                  <span class="cell-value">76.96<span class="positive">(+4.25)</span></span>
+                </td>
+              </tr>
+              <tr>
+                <td class="model-2">Self-Refine</td>
+                <td class="data-cell">
+                  <div class="progress-bar-2" style="width: 85.49%;"></div>
+                  <span class="cell-value">85.49<span class="positive">(+4.73)</span></span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-2" style="width: 81.06%;"></div>
+                  <span class="cell-value">81.06<span class="positive">(+1.10)</span></span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-2" style="width: 40.69%;"></div>
+                  <span class="cell-value">40.69<span class="positive">(+22.13)</span></span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-2" style="width: 91.74%;"></div>
+                  <span class="cell-value">91.74<span class="positive">(+5.28)</span></span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-2" style="width: 69.46%;"></div>
+                  <span class="cell-value">69.46<span class="positive">(+8.23)</span></span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-2" style="width: 81.77%;"></div>
+                  <span class="cell-value">81.77<span class="positive">(+6.65)</span></span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-2" style="width: 0%;"></div>
+                  <span class="cell-value">-</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="model-2">Reflection-v1</td>
+                <td class="data-cell">
+                  <div class="progress-bar-2" style="width: 69.52%;"></div>
+                  <span class="cell-value">69.52<span class="negative">(-11.24)</span></span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-2" style="width: 63.89%;"></div>
+                  <span class="cell-value">63.89<span class="negative">(-16.07)</span></span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-2" style="width: 19.25%;"></div>
+                  <span class="cell-value">19.25<span class="positive">(+0.69)</span></span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-2" style="width: 67.64%;"></div>
+                  <span class="cell-value">67.64<span class="negative">(-18.82)</span></span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-2" style="width: 48.33%;"></div>
+                  <span class="cell-value">48.33<span class="negative">(-12.90)</span></span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-2" style="width: 65.01%;"></div>
+                  <span class="cell-value">65.01<span class="negative">(-10.11)</span></span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-2" style="width: 0%;"></div>
+                  <span class="cell-value">-</span>
+                </td>
+              </tr>
+              
+              <!-- S2 -->
+              <tr class="group-3">
+              </tr>
+              <tr>
+                <td rowspan="4" class="model-3">S2</td>
+                <td class="model-3">Reflection-v2</td>
+                <td class="data-cell">
+                  <div class="progress-bar-3" style="width: 87.98%;"></div>
+                  <span class="cell-value">87.98<span class="positive">(+7.22)</span></span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-3" style="width: 82.21%;"></div>
+                  <span class="cell-value">82.21<span class="positive">(+2.25)</span></span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-3" style="width: 26.85%;"></div>
+                  <span class="cell-value">26.85<span class="positive">(+8.29)</span></span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-3" style="width: 89.87%;"></div>
+                  <span class="cell-value">89.87<span class="positive">(+3.41)</span></span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-3" style="width: 68.23%;"></div>
+                  <span class="cell-value">68.23<span class="positive">(+7.00)</span></span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-3" style="width: 81.36%;"></div>
+                  <span class="cell-value">81.36<span class="positive">(+6.24)</span></span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-3" style="width: 0%;"></div>
+                  <span class="cell-value">-</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="model-3">RARR</td>
+                <td class="data-cell">
+                  <div class="progress-bar-3" style="width: 85.47%;"></div>
+                  <span class="cell-value">85.47<span class="positive">(+4.71)</span></span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-3" style="width: 80.57%;"></div>
+                  <span class="cell-value">80.57<span class="positive">(+0.61)</span></span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-3" style="width: 36.82%;"></div>
+                  <span class="cell-value">36.82<span class="positive">(+18.26)</span></span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-3" style="width: 88.92%;"></div>
+                  <span class="cell-value">88.92<span class="positive">(+2.46)</span></span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-3" style="width: 66.81%;"></div>
+                  <span class="cell-value">66.81<span class="positive">(+5.58)</span></span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-3" style="width: 82.78%;"></div>
+                  <span class="cell-value">82.78<span class="positive">(+7.66)</span></span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-3" style="width: 77.35%;"></div>
+                  <span class="cell-value">77.35<span class="positive">(+4.64)</span></span>
+                </td>
+              </tr>
+              <tr>
+                <td class="model-3">RATT</td>
+                <td class="data-cell">
+                  <div class="progress-bar-3" style="width: 79.59%;"></div>
+                  <span class="cell-value">79.59<span class="negative">(-1.17)</span></span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-3" style="width: 80.81%;"></div>
+                  <span class="cell-value">80.81<span class="positive">(+0.85)</span></span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-3" style="width: 25.90%;"></div>
+                  <span class="cell-value">25.90<span class="positive">(+7.34)</span></span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-3" style="width: 88.08%;"></div>
+                  <span class="cell-value">88.08<span class="positive">(+1.62)</span></span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-3" style="width: 68.06%;"></div>
+                  <span class="cell-value">68.06<span class="positive">(+6.83)</span></span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-3" style="width: 80.74%;"></div>
+                  <span class="cell-value">80.74<span class="positive">(+5.62)</span></span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-3" style="width: 73.44%;"></div>
+                  <span class="cell-value">73.44<span class="positive">(+0.73)</span></span>
+                </td>
+              </tr>
+              <tr>
+                <td class="model-3">CRITIC</td>
+                <td class="data-cell">
+                  <div class="progress-bar-3" style="width: 0%;"></div>
+                  <span class="cell-value">-</span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-3" style="width: 81.77%;"></div>
+                  <span class="cell-value">81.77<span class="positive">(+1.81)</span></span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-3" style="width: 0%;"></div>
+                  <span class="cell-value">-</span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-3" style="width: 77.46%;"></div>
+                  <span class="cell-value">77.46<span class="negative">(-9.00)</span></span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-3" style="width: 0%;"></div>
+                  <span class="cell-value">-</span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-3" style="width: 0%;"></div>
+                  <span class="cell-value">-</span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-3" style="width: 0%;"></div>
+                  <span class="cell-value">-</span>
+                </td>
+              </tr>
+              
+              <!-- Average -->
+              <tr>
+                <td>-</td>
+                <td>Average</td>
+                <td class="data-cell">
+                  <div class="progress-bar-1" style="width: 83.54%;"></div>
+                  <span class="cell-value">83.54<span class="positive">(+2.78)</span></span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-1" style="width: 80.18%;"></div>
+                  <span class="cell-value">80.18<span class="positive">(+0.22)</span></span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-1" style="width: 31.28%;"></div>
+                  <span class="cell-value">31.28<span class="positive">(+12.72)</span></span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-1" style="width: 85.04%;"></div>
+                  <span class="cell-value">85.04<span class="negative">(-1.42)</span></span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-1" style="width: 68.47%;"></div>
+                  <span class="cell-value">68.47<span class="positive">(+7.24)</span></span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-1" style="width: 80.15%;"></div>
+                  <span class="cell-value">80.15<span class="positive">(+5.03)</span></span>
+                </td>
+                <td class="data-cell">
+                  <div class="progress-bar-1" style="width: 73.80%;"></div>
+                  <span class="cell-value">73.80<span class="positive">(+1.09)</span></span>
+                </td>
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-</html>
+<!-- Leaderboard -->
+<section class="hero is-light">
+  <div class="container">
+    <div class="has-text-centered" style="padding: 20px 0;">
+      <!-- 原有标题 -->
+      <h2 class="title is-1">
+        <img src="./fig/pic3.png" alt=""
+          style="width: 70px; height: auto; vertical-align: middle; margin-right: 10px; display: inline-block;">
+        <span style="vertical-align: middle;" id="Leaderboard">Evaluation and Results</span>
+      </h2>
+
+      <!-- 新增内容 -->
+      <div class="content" style="margin-top: 2rem;">
+        <!-- 文字部分 -->
+        <p class="has-text-justified">
+          Findings indicate substantial accuracy improvements with self-correction, especially in mathematical and complex
+          reasoning tasks. However, mixing methods may increase computational overhead significantly.
+        </p>
+
+        <!-- 图片部分 -->
+        <div class="has-text-centered" style="margin: 2rem 0;">
+          <img src="./fig/increase_intrinsic.png" alt="Evaluation Results"
+            style="max-width: 800px; height: auto; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero is-light">
+  <div class="container">
+    <div class="has-text-centered" style="padding: 20px 0;">
+      <!-- 原有标题 -->
+      <h2 class="title is-1">
+        <img src="./fig/pic.png" alt=""
+          style="width: 70px; height: auto; vertical-align: middle; margin-right: 10px; display: inline-block;">
+        <span style="vertical-align: middle;" id="Leaderboard">Conclusion and Implications</span>
+      </h2>
+
+      <!-- 新增内容 -->
+      <div class="content" style="margin-top: 2rem;">
+        <!-- 文字部分 -->
+        <p class="has-text-justified">
+          The benchmark emphasizes self-correction as a valuable tool for enhancing LLM performance, with a clear need to balance
+          reasoning capabilities and efficiency. Future research should optimize this trade-off for practical applications.
+        </p>
+
+        <!-- 图片部分 -->
+        <div class="has-text-centered" style="margin: 2rem 0;">
+          <img src="./fig/increase_intrinsic.png" alt="Evaluation Results"
+            style="max-width: 800px; height: auto; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- End image carousel -->
+<!-- End dataset -->
+
+<!--BibTex citation -->
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <pre><code>@inproceedings{tie2025correctbench,
+        title={CorrectBench: A Benchmark of Self-Correction in LLMs},
+        author={Guiyao Tie and Zenghui Yuan and Zeli Zhao and Chaoran Hu and Tianhe Gu and Ruihang Zhang and Sizhe Zhang and Junran Wu and Xiaoyue Tu and Ming Jin and Qingsong Wen and Lixing Chen and Pan Zhou and Lichao Sun},
+        booktitle={Proceedings of the NeurIPS 2025 Datasets and Benchmarks Track},
+        year={2025},
+      }
+      </code></pre>
+    </div>
+</section>
+<!--End BibTex citation -->
+
+
+  <footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+
+          <p>
+            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+            You are free to borrow the source code of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Statcounter tracking code -->
+  
+<!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
+
+    <!-- End of Statcounter Code -->
+
+  </body>
+  </html>
