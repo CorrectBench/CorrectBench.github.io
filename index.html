@@ -81,25 +81,25 @@
                     Xiaoyue Tu<sup style="color:#00c9a7">1</sup>,
                   </span>
                   <span class="author-block">
-                    Ming Jin<sup style="color:#00c9a7">1</sup>,
+                    Ming Jin<sup style="color:#FF9F40">2</sup>,
                   </span>
                   <span class="author-block">
-                    Qingsong Wen<sup style="color:#00c9a7">1</sup>,
+                    Qingsong Wen<sup style="color:#2312d7">3</sup>,
                   </span>
                   <span class="author-block">
-                    Lixing Chen<sup style="color:#00c9a7">1</sup>,
+                    Lixing Chen<sup style="color:#8B2635">4</sup>,
                   </span>
                   <span class="author-block">
                     <a href="https://scholar.google.com/citations?user=cTpFPJgAAAAJ&hl=en" target="_blank">Pan Zhou<sup style="color:#00c9a7">1</sup></a>,
                   </span>
                   <span class="author-block">
-                    <a href="https://lichao-sun.github.io/" target="_blank">Lichao Sun<sup style="color: #845ec2;">2</sup></a>,
+                    <a href="https://lichao-sun.github.io/" target="_blank">Lichao Sun<sup style="color: #845ec2;">5</sup></a>,
                   </span>
                   
                   </div>
 
                   <div class="is-size-5 publication-authors">
-                    <span class="author-block"><sup style="color:#00c9a7">1</sup>Huazhong University of Science and Technology, <sup style="color: #845ec2;">2</sup>Lehigh University<br>
+                    <span class="author-block"><sup style="color:#00c9a7">1</sup>Huazhong University of Science and Technology, <sup style="color: #FF9F40;">2</sup>Griffith University, <sup style="color: #2312d7;">3</sup>Squirrel Ai Learning, <sup style="color: #8B2635;">4</sup>Shanghai Jiaotong University, <sup style="color: #845ec2;">5</sup>Lehigh University<br>
                       <!-- <br><span style="color: red">NeurIPS 2025 Datasets and Benchmarks Track Submission</span></span> -->
                     <!-- <span class="eql-cntrb"><small><br><sup>*</sup>Indicates Equal Contribution</small></span> -->
                   </div>
@@ -175,19 +175,7 @@
     <div class="hero-body">
       <!-- <img src="./fig/overview.png" alt=""> -->
       <p class="has-text-left">
-        This paper introduces <strong>CorrectBench</strong>, the first systematic benchmark for evaluating self-correction
-        capabilities in large language models (LLMs) across three critical domains: <em>commonsense reasoning</em>,
-        <em>mathematical reasoning</em>, and <em>code generation</em>. We systematically analyze three distinct correction
-        paradigms: <br><br>
-        <strong>• Intrinsic self-correction through reflective prompting <br>
-        • External verification via tool-augmented methods <br>
-        • Fine-tuned correction models <br><br></strong>
-        
-        Our empirical study demonstrates that while self-correction strategies achieve <strong>5.2% accuracy gains</strong> on
-        complex mathematical reasoning (MATH dataset), hybrid approaches incur significant efficiency costs (≈40% slower than
-        baseline). Surprisingly, chain-of-thought prompting maintains competitive performance with <strong>2.8× faster
-          execution</strong> compared to DeepSeek-V3 with correction layers. These findings highlight the critical trade-off
-        between reasoning accuracy and computational efficiency in LLM self-correction systems.
+        This paper introduces <strong>CorrectBench</strong>, the first systematic benchmark for evaluating self-correction capabilities in large language models (LLMs) across three critical domains: <em>commonsense reasoning</em>, <em>mathematical reasoning</em>, and <em>code generation</em>. We systematically analyze three distinct correction paradigms:<strong>1) Intrinsic self-correction through reflective prompting;2) External verification via tool-augmented methods;3) Fine-tuned correction models.</strong> Our empirical study demonstrates that while self-correction strategies achieve <strong>5.2% accuracy gains</strong> on complex mathematical reasoning (MATH dataset), hybrid approaches incur significant efficiency costs (≈40% slower than baseline). Surprisingly, chain-of-thought prompting maintains competitive performance with <strong>2.8× faster execution</strong> compared to DeepSeek-V3 with correction layers. These findings highlight the critical trade-off between reasoning accuracy and computational efficiency in LLM self-correction systems.
       </p>
     </div>
   </div>
@@ -238,7 +226,27 @@
     </div>
   </div>
 </section>
+<style>
+  /* 自定义标签尺寸 */
+  .tag.custom-tag {
+    font-size: 1.25rem;
+    padding: 0.75rem 1.25rem;
+    min-width: 3.5rem;
+    transform: scale(1.2);
+    margin-right: 1.2rem;
+  }
 
+  /* 恢复方法链接图标原始尺寸 */
+  .tags .fa-external-link-alt {
+    font-size: 0.8em !important;
+  }
+
+  /* 微调媒体对象对齐 */
+  .media {
+    align-items: center;
+  }
+
+  </style>
 <section class="hero is-small">
   <div class="hero-body">
     <div class="container">
@@ -256,18 +264,113 @@
           </div>
           <div class="has-text-centered" style="margin: 30px 0;">
             <img src="./fig/overview.png" alt="Data Overview" style="max-width: 80%; height: auto;">
-            <div class="section">
-              <!-- 修改标题层级和样式 -->
-              <h2 class="title is-3 has-text-centered" style="margin: 1.5rem 0;">
-                Self-Correction Types
-              </h2>
-              <ul class="has-text-left" style="max-width: 600px; margin: 0 auto;">
-                <li><strong>S1: Intrinsic Correction:</strong> This category focuses on the LLMs' capacity to <strong>internally identify and correct errors</strong> without external tools. Methods such as <strong><a href="https://arxiv.org/abs/2303.17491" target="_blank">RCI</a>, <a href="https://arxiv.org/abs/2303.17651" target="_blank">Self-Refine</a>, <a href="https://arxiv.org/abs/2309.11495" target="_blank">CoVe</a>, and <a href="https://arxiv.org/abs/2303.11366" target="_blank">Reflexion</a></strong> enable the LLMs to re-evaluate its prior reasoning steps and resolve inconsistencies based on its internal knowledge.</li>
-                <li><strong>S2: External Correction:</strong> In contrast to S1, S2 (e.g., <strong>Reflexion, <a href="https://arxiv.org/abs/2210.08726" target="_blank">RARR</a>, <a href="https://arxiv.org/abs/2406.02746" target="_blank">RATT</a>, <a href="https://arxiv.org/abs/2305.11738" target="_blank">CRITIC</a></strong>) leverages external resources, such as <strong>knowledge bases or Google search tools</strong>, to address gaps in the internal representation. This external support can correct factual inaccuracies or logical oversights, though it may constrain the model's capacity for divergent reasoning.</li>
-                <li><strong>S3: Fine-tuned Correction:</strong> Fine-tuned correction methods including <strong><a href="https://arxiv.org/pdf/2407.03181" target="_blank">DCoT</a>, SCORE, and SuperCorrect</strong> enhance LLMs' self-correction performance through <strong>targeted fine-tuning</strong>. Although potentially effective, these methods require substantial training and are often limited
-                by the scope and quality of the fine-tuning data.</li>
-              </ul>
-            </div>
+            <div class="section px-5">
+              <div class="container">
+                <!-- 标题部分保持不变 -->
+                <div class="title-wrapper has-text-centered mb-6">
+                  <h2 class="title is-3 has-text-primary is-uppercase has-text-weight-semibold mb-4">
+                    <span class="icon-text">
+                      <span class="icon has-text-info">
+                        <i class="fas fa-sync-alt fa-lg"></i>
+                      </span>
+                      <span>Self-Correction Types</span>
+                    </span>
+                  </h2>
+                  <div class="divider is-centered has-background-primary" style="height: 2px; max-width: 120px; margin: 0 auto;">
+                  </div>
+                </div>
+            
+                <div class="columns is-multiline is-centered">
+                  <!-- S1 卡片 -->
+                  <div class="column is-4">
+                    <div class="card has-radius-large has-shadow-hover">
+                      <div class="card-content py-5 px-4">
+                        <div class="media">
+                          <div class="media-left">
+                            <span class="tag is-primary is-rounded custom-tag">S1</span>
+                          </div>
+                          <div class="media-content">
+                            <p class="title is-5 has-text-weight-semibold has-text-left">Intrinsic Correction</p>
+                          </div>
+                        </div>
+                        <div class="content has-text-grey-darker has-text-left">
+                          <p class="mb-3 has-text-left">LLMs <strong>internally identify and correct errors</strong> without
+                            external tools. Features self-evaluation of reasoning steps.</p>
+                          <div class="tags are-medium">
+                            <a href="https://arxiv.org/abs/2303.17491" target="_blank" class="tag is-info is-light">
+                              RCI <i class="fas fa-external-link-alt ml-2"></i>
+                            </a>
+                            <a href="https://arxiv.org/abs/2303.17651" target="_blank" class="tag is-info is-light">
+                              Self-Refine <i class="fas fa-external-link-alt ml-2"></i>
+                            </a>
+                            <a href="https://arxiv.org/abs/2309.11495" target="_blank" class="tag is-info is-light">
+                              CoVe <i class="fas fa-external-link-alt ml-2"></i>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+            
+                  <!-- S2 卡片 -->
+                  <div class="column is-4">
+                    <div class="card has-radius-large has-shadow-hover">
+                      <div class="card-content py-5 px-4">
+                        <div class="media">
+                          <div class="media-left">
+                            <span class="tag is-success is-rounded custom-tag">S2</span>
+                          </div>
+                          <div class="media-content">
+                            <p class="title is-5 has-text-weight-semibold has-text-left">External Correction</p>
+                          </div>
+                        </div>
+                        <div class="content has-text-grey-darker has-text-left">
+                          <p class="mb-3 has-text-left">Leverages external resources like <strong>knowledge bases</strong> and
+                            <strong>search tools</strong> to validate information.</p>
+                          <div class="tags are-medium">
+                            <a href="https://arxiv.org/abs/2210.08726" target="_blank" class="tag is-success is-light">
+                              RARR <i class="fas fa-external-link-alt ml-2"></i>
+                            </a>
+                            <a href="https://arxiv.org/abs/2406.02746" target="_blank" class="tag is-success is-light">
+                              RATT <i class="fas fa-external-link-alt ml-2"></i>
+                            </a>
+                            <a href="https://arxiv.org/abs/2305.11738" target="_blank" class="tag is-success is-light">
+                              CRITIC <i class="fas fa-external-link-alt ml-2"></i>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+            
+                  <!-- S3 卡片 -->
+                  <div class="column is-4">
+                    <div class="card has-radius-large has-shadow-hover">
+                      <div class="card-content py-5 px-4">
+                        <div class="media">
+                          <div class="media-left">
+                            <span class="tag is-warning is-rounded custom-tag">S3</span>
+                          </div>
+                          <div class="media-content">
+                            <p class="title is-5 has-text-weight-semibold has-text-left">Fine-tuned Correction</p>
+                          </div>
+                        </div>
+                        <div class="content has-text-grey-darker has-text-left">
+                          <p class="mb-3 has-text-left">Enhances performance through <strong>targeted fine-tuning</strong>. Requires
+                            training with specialized datasets.</p>
+                          <div class="tags are-medium">
+                            <a href="https://arxiv.org/pdf/2407.03181" target="_blank" class="tag is-warning is-light">
+                              DCoT <i class="fas fa-external-link-alt ml-2"></i>
+                            </a>
+                            <span class="tag is-warning is-light">SCORE</span>
+                            <span class="tag is-warning is-light">SuperCorrect</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>      </div>
           </div>
         </div>
       </div>
