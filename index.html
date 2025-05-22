@@ -174,10 +174,20 @@
   <div class="container is-max-desktop">
     <div class="hero-body">
       <!-- <img src="./fig/overview.png" alt=""> -->
-      <p class="has-text-centered">
-        This paper introduces CorrectBench, a systematic benchmark to evaluate self-correction capabilities in large language
-        models (LLMs), covering commonsense reasoning, mathematical reasoning, and code generation. The study reveals
-        self-correction strategies can improve reasoning accuracy but may impact efficiency.
+      <p class="has-text-left">
+        This paper introduces <strong>CorrectBench</strong>, the first systematic benchmark for evaluating self-correction
+        capabilities in large language models (LLMs) across three critical domains: <em>commonsense reasoning</em>,
+        <em>mathematical reasoning</em>, and <em>code generation</em>. We systematically analyze three distinct correction
+        paradigms: <br><br>
+        <strong>• Intrinsic self-correction through reflective prompting <br>
+        • External verification via tool-augmented methods <br>
+        • Fine-tuned correction models <br><br></strong>
+        
+        Our empirical study demonstrates that while self-correction strategies achieve <strong>5.2% accuracy gains</strong> on
+        complex mathematical reasoning (MATH dataset), hybrid approaches incur significant efficiency costs (≈40% slower than
+        baseline). Surprisingly, chain-of-thought prompting maintains competitive performance with <strong>2.8× faster
+          execution</strong> compared to DeepSeek-V3 with correction layers. These findings highlight the critical trade-off
+        between reasoning accuracy and computational efficiency in LLM self-correction systems.
       </p>
     </div>
   </div>
@@ -195,9 +205,19 @@
         </h2>
         <div class="content has-text-justified">
           <p>
-            Large Language Models (LLMs) have greatly advanced, but ensuring their reliability and accuracy remains challenging.
-            Self-correction methods help refine LLM responses through iterative feedback, enhancing performance particularly in
-            complex reasoning tasks.
+            The rapid advancement of <strong>large language models (LLMs)</strong>, exemplified by GPT-3.5 and LLaMA 3, has precipitated a
+            transformative shift in artificial intelligence (AI), yielding state-of-the-art performance across diverse tasks.
+            Specifically, these tasks include content generation, natural language understanding, and complex decision-making, all
+            of which have been revolutionized by the extensive pretraining and sophisticated architectures of LLMs. Notably, the
+            introduction of frameworks like <strong>Chain-of-Thought (CoT)</strong> has further expanded LLM's capacity for multi-step reasoning,
+            enabling them to tackle more intricate tasks.
+            
+            Despite these advancements, ensuring the reliability and accuracy of model outputs, especially for reasoning-intensive
+            tasks, remains a formidable challenge. In response, recent works have focused on self-correction strategies aimed at
+            refining LLMs' decision-making processes through iterative revision. Pioneering approaches such as <strong>RARR, Refiner, and
+            CRITIC</strong> illustrate the potential of integrating feedback loops and corrective components into model architectures.
+            However, these approaches often yield inconsistent gains across different tasks, prompting deeper questions about their
+            capability of correction and generalizability.
           </p>
         </div>
       </div>
@@ -227,10 +247,11 @@
         <div class="column is-10">
           <div class="content">
             <p class="has-text-justified">
-              <b>CorrectBench</b> is a detailed benchmark developed to measure the effectiveness of self-correction
-              methods in LLMs across
-              various reasoning tasks. It evaluates intrinsic, external, and fine-tuned correction methods
-              systematically.
+              <b>CorrectBench</b> is a systematically designed benchmark that quantifies the extent to which various correction methods
+              improve model outputs in reasoning-intensive scenarios.CorrectBench characterizes self-correction along three principal
+              dimensions: <strong>Task Scenario, Self-Correction Type, and LLM Type</strong>. The evaluation pipeline begins with selecting a specific
+              task scenario and dataset, followed by applying a chosen correction method, and concludes with assessing the model's
+              iterative self-correction process across diverse LLMs.
             </p>
           </div>
           <div class="has-text-centered" style="margin: 30px 0;">
@@ -241,9 +262,10 @@
                 Self-Correction Types
               </h2>
               <ul class="has-text-left" style="max-width: 600px; margin: 0 auto;">
-                <li><strong>Intrinsic Correction:</strong> Internal error correction without external aids.</li>
-                <li><strong>External Correction:</strong> Uses external tools and resources to correct errors.</li>
-                <li><strong>Fine-tuned Correction:</strong> Model adjustments through targeted fine-tuning.</li>
+                <li><strong>S1: Intrinsic Correction:</strong> This category focuses on the LLMs' capacity to <strong>internally identify and correct errors</strong> without external tools. Methods such as <strong><a href="https://arxiv.org/abs/2303.17491" target="_blank">RCI</a>, <a href="https://arxiv.org/abs/2303.17651" target="_blank">Self-Refine</a>, <a href="https://arxiv.org/abs/2309.11495" target="_blank">CoVe</a>, and <a href="https://arxiv.org/abs/2303.11366" target="_blank">Reflexion</a></strong> enable the LLMs to re-evaluate its prior reasoning steps and resolve inconsistencies based on its internal knowledge.</li>
+                <li><strong>S2: External Correction:</strong> In contrast to S1, S2 (e.g., <strong>Reflexion, <a href="https://arxiv.org/abs/2210.08726" target="_blank">RARR</a>, <a href="https://arxiv.org/abs/2406.02746" target="_blank">RATT</a>, <a href="https://arxiv.org/abs/2305.11738" target="_blank">CRITIC</a></strong>) leverages external resources, such as <strong>knowledge bases or Google search tools</strong>, to address gaps in the internal representation. This external support can correct factual inaccuracies or logical oversights, though it may constrain the model's capacity for divergent reasoning.</li>
+                <li><strong>S3: Fine-tuned Correction:</strong> Fine-tuned correction methods including <strong><a href="https://arxiv.org/pdf/2407.03181" target="_blank">DCoT</a>, SCORE, and SuperCorrect</strong> enhance LLMs' self-correction performance through <strong>targeted fine-tuning</strong>. Although potentially effective, these methods require substantial training and are often limited
+                by the scope and quality of the fine-tuning data.</li>
               </ul>
             </div>
           </div>
