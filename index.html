@@ -2,49 +2,92 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <!-- Meta tags for social media banners, these should be filled in appropriatly as they are your "business card" -->
-  <!-- Replace the content tag with appropriate information -->
-  <meta name="description" content="DESCRIPTION META TAG">
-  <meta property="og:title" content="SOCIAL MEDIA TITLE TAG"/>
-  <meta property="og:description" content="SOCIAL MEDIA DESCRIPTION TAG TAG"/>
-  <meta property="og:url" content="URL OF THE WEBSITE"/>
-  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X630-->
-  <meta property="og:image" content="static/image/your_banner_image.png" />
+  <!-- Primary Meta Tags -->
+  <meta name="description" content="CorrectBench: A comprehensive benchmark for evaluating self-correction capabilities in large language models">
+  <meta property="og:title" content="CorrectBench: A Benchmark of Self-Correction in LLMs"/>
+  <meta property="og:description" content="The first standardized evaluation framework for LLM self-correction capabilities"/>
+  <meta property="og:url" content="YOUR_WEBSITE_URL"/>
+  <!-- 更新OG图片路径 -->
+  <meta property="og:image" content="fig/Stitch_20250523_190405.png" />
   <meta property="og:image:width" content="1200"/>
   <meta property="og:image:height" content="630"/>
 
-
-  <meta name="twitter:title" content="TWITTER BANNER TITLE META TAG">
-  <meta name="twitter:description" content="TWITTER BANNER DESCRIPTION META TAG">
-  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X600-->
-  <meta name="twitter:image" content="static/images/your_twitter_banner_image.png">
+  <!-- Twitter Meta Tags -->
+  <meta name="twitter:title" content="CorrectBench: Benchmarking Self-Correction in LLMs">
+  <meta name="twitter:description" content="Empirical evaluation framework for large language model self-correction abilities">
+  <!-- 更新Twitter图片路径 -->
+  <meta name="twitter:image" content="fig/Stitch_20250523_190405.png">
   <meta name="twitter:card" content="summary_large_image">
-  <!-- Keywords for your paper to be indexed by-->
-  <meta name="keywords" content="KEYWORDS SHOULD BE PLACED HERE">
+  
+  <meta name="keywords" content="Large Language Models, AI Benchmark, Self-Correction, NLP Evaluation, AI Research">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-
-  <title>CorrectBench: A Benchmark of Self-Correction in LLMs</title>
+  <title>CorrectBench: Can LLMs Correct Themselves? A Benchmark of Self-Correction in LLMs</title>
   <link rel="icon" type="image/x-icon" href="static/images/MMMR_logo.ico">
-  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
-  rel="stylesheet">
 
+  <!-- 优化后的标题样式 -->
+  <style>
+    .hero-title {
+      text-align: center;
+      padding: 4rem 1rem;
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    }
+    .title-logo {
+      max-width: 1200px;
+      width: 90%;
+      height: auto;
+      margin: 0 auto;
+      display: block;
+    }
+    @media (max-width: 768px) {
+      .hero-title {
+        padding: 2rem 1rem;
+      }
+      .title-logo {
+        width: 100%;
+      }
+    }
+  </style>
+
+  <!-- 外部资源 -->
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans:400,500,700|Noto+Sans:400,700|Castoro" rel="stylesheet">
   <link rel="stylesheet" href="static/css/bulma.min.css">
   <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
   <link rel="stylesheet" href="static/css/bulma-slider.min.css">
   <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
-  <link rel="stylesheet"
-  href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
-  <link rel="stylesheet" href="static/css/index.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+</head>
 
+<body>
+  <!-- 标题部分 -->
+  <section class="hero is-medium hero-title">
+    <div class="hero-body">
+      <div class="container">
+        <!-- 标题图片（包含完整文字内容） -->
+        <img src="fig/Stitch_20250523_190405.png" 
+             alt="Can LLMs Correct Themselves? A Benchmark of Self-Correction in LLMs" 
+             class="title-logo">
+      </div>
+    </div>
+  </section>
+
+  <!-- 页面内容 -->
+  <section class="section">
+    <div class="container">
+      <!-- 你的内容 -->
+      <p>Your content goes here...</p>
+    </div>
+  </section>
+
+  <!-- 脚本 -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
   <script defer src="static/js/fontawesome.all.min.js"></script>
   <script src="static/js/bulma-carousel.min.js"></script>
   <script src="static/js/bulma-slider.min.js"></script>
   <script src="static/js/index.js"></script>
-</head>
-<body>
+</body>
+</html>
 
 
   <section class="hero">
